@@ -2,6 +2,13 @@
 
 Projeto acadêmico de Back-end para uma rede fictícia de lanchonetes. A API cobre unidades, cardápio, pedidos multicanal, pagamento mock, estoque, fidelidade, relatórios e auditoria.
 
+## Identificação acadêmica
+
+- Acadêmico: RHAMSES GONÇALVES MAGALHAES;
+- RU: 4688632;
+- Curso: GRAD - CST ANÁLISE E DESENVOLVIMENTO DE SISTEMAS;
+- Instituição: Centro Universitário Internacional UNINTER.
+
 ## Requisitos
 
 - Python 3.11 ou superior;
@@ -128,8 +135,15 @@ Promoções estão representadas conceitualmente em `GET /promocoes/regras`. A a
 - Swagger local: `http://127.0.0.1:8000/docs`;
 - coleção Postman: `postman/Raizes_do_Nordeste.postman_collection.json`;
 - relatório JUnit: `docs/relatorio-testes.xml`.
+- histórico de elaboração: `docs/historico-desenvolvimento.md`.
 
 O repositório está publicado na organização acadêmica `raizes-do-nordeste-academico`. Antes da entrega, confirme que o link público abre em uma janela anônima.
+
+## Histórico de elaboração
+
+O projeto começou em arquivos locais de experimentação e em uma base SQLite usada durante o estudo. Depois da revisão dos requisitos, esse material foi consolidado na estrutura em camadas e somente então publicado neste repositório. Por esse motivo, os commits iniciais compartilham a data de publicação, embora estejam separados por área: implementação, testes automatizados, diagramas e plano de testes, coleção Postman e documentação.
+
+O arquivo `docs/historico-desenvolvimento.md` registra retrospectivamente os principais marcos e decisões. Esse registro não altera datas do Git nem pretende substituir o histórico técnico. O relatório acadêmico contém a declaração de uso de inteligência artificial exigida pelo roteiro.
 
 ## Limitações
 
