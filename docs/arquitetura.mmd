@@ -1,0 +1,15 @@
+flowchart LR
+    Canais[App Web Totem Balcao Pickup]
+    API[API FastAPI rotas contratos JWT OpenAPI]
+    Application[Application casos de uso e orquestracao]
+    Domain[Domain entidades enums e regras]
+    Infra[Infrastructure SQLAlchemy logs e gateway mock]
+    DB[(SQLite local PostgreSQL proposto)]
+    Gateway[Gateway de pagamento simulado]
+
+    Canais --> API
+    API --> Application
+    Application --> Domain
+    Domain --> Infra
+    Infra --> DB
+    Infra --> Gateway

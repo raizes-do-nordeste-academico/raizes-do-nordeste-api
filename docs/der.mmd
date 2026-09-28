@@ -1,0 +1,27 @@
+erDiagram
+    UNIDADES ||--o{ USUARIOS : vincula
+    USUARIOS ||--o{ PEDIDOS : realiza
+    UNIDADES ||--o{ PEDIDOS : recebe
+    UNIDADES ||--o{ ESTOQUE_UNIDADES : possui
+    PRODUTOS ||--o{ ESTOQUE_UNIDADES : disponibiliza
+    PEDIDOS ||--|{ ITENS_PEDIDO : contem
+    PRODUTOS ||--o{ ITENS_PEDIDO : referencia
+    PEDIDOS ||--o{ PAGAMENTOS : registra
+    USUARIOS ||--o{ LOGS_AUDITORIA : executa
+    PEDIDOS ||--o{ LOGS_AUDITORIA : relaciona
+    UNIDADES ||--o{ MOVIMENTOS_ESTOQUE : recebe
+    PRODUTOS ||--o{ MOVIMENTOS_ESTOQUE : movimenta
+    USUARIOS ||--o{ MOVIMENTOS_ESTOQUE : registra
+    USUARIOS ||--o{ HISTORICO_FIDELIDADE : possui
+    PEDIDOS ||--o{ HISTORICO_FIDELIDADE : origina
+
+    UNIDADES { int id PK string nome UK string tipo_unidade string endereco bool ativo }
+    USUARIOS { int id PK int unidade_id FK string nome string email UK string senha_hash string perfil bool aceitou_fidelidade datetime data_consentimento int pontos_fidelidade }
+    PRODUTOS { int id PK string nome decimal preco string categoria bool ativo }
+    ESTOQUE_UNIDADES { int id PK int unidade_id FK int produto_id FK int quantidade }
+    PEDIDOS { int id PK int usuario_id FK int unidade_id FK string canal_pedido string status decimal valor_total datetime criado_em }
+    ITENS_PEDIDO { int id PK int pedido_id FK int produto_id FK int quantidade decimal preco_unitario }
+    PAGAMENTOS { int id PK int pedido_id FK string metodo string status_transacao decimal valor string transacao_id string idempotency_key UK }
+    LOGS_AUDITORIA { int id PK int usuario_id FK int pedido_id FK string perfil string acao string detalhes datetime criado_em }
+    MOVIMENTOS_ESTOQUE { int id PK int unidade_id FK int produto_id FK int usuario_id FK string tipo int quantidade string motivo datetime criado_em }
+    HISTORICO_FIDELIDADE { int id PK int usuario_id FK int pedido_id FK string tipo int pontos string descricao datetime criado_em }

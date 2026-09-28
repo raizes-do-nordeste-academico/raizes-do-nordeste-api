@@ -1,0 +1,34 @@
+sequenceDiagram
+    autonumber
+    actor Cliente
+    participant API as FastAPI
+    participant Auth as JWT e RBAC
+    participant ORM as SQLAlchemy
+    participant DB as SQLite
+    participant Gateway as Gateway simulado
+
+    Cliente->>API: POST /pagamentos/processar (pedido, metodo, valor, chave)
+    API->>Auth: Validar token
+    Auth-->>API: Usuario autenticado
+    API->>ORM: Validar propriedade, valor e idempotencia
+    ORM->>DB: SELECT pedido e itens
+    DB-->>ORM: Dados do pedido
+    ORM-->>API: Pedido e disponibilidade
+
+    alt Estoque insuficiente
+        API-->>Cliente: HTTP 409 Conflict
+    else Estoque disponivel
+        API->>Gateway: Simular transacao
+        Gateway-->>API: Aprovado ou recusado
+        alt Pagamento aprovado
+            API->>ORM: Baixar estoque de forma atomica
+            API->>ORM: Atualizar pedido e pontos
+            ORM->>DB: Registrar pagamento e auditoria
+            API-->>Cliente: HTTP 200 OK
+        else Pagamento recusado
+            API->>ORM: Atualizar pedido e registrar auditoria
+            ORM->>DB: Commit
+            API-->>Cliente: HTTP 400 Bad Request
+        end
+    end
+

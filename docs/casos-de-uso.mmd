@@ -1,0 +1,37 @@
+flowchart LR
+    Cliente((Cliente))
+    Atendente((Atendente))
+    Cozinha((Cozinha))
+    Gerente((Gerente))
+    Admin((Administrador))
+    Gateway((Gateway simulado))
+
+    Cliente --> UC1[Consultar cardapio]
+    Cliente --> UC2[Criar e acompanhar pedido]
+    Cliente --> UC3[Processar pagamento digital]
+    Cliente --> UC4[Gerenciar consentimento e pontos]
+    Cliente --> UC14[Resgatar pontos]
+    Cliente --> UC5[Cancelar pedido nao pago]
+
+    Atendente --> UC2
+    Atendente --> UC6[Registrar pagamento em dinheiro]
+    Atendente --> UC7[Marcar pedido como entregue]
+
+    Cozinha --> UC8[Visualizar pedidos da unidade]
+    Cozinha --> UC9[Marcar pedido como pronto]
+
+    Gerente --> UC10[Consultar relatorios]
+    Gerente --> UC11[Consultar auditoria]
+    Gerente --> UC12[Cancelar pedido pago]
+    Gerente --> UC15[Movimentar estoque]
+
+    Admin --> UC10
+    Admin --> UC11
+    Admin --> UC13[Gerenciar unidades]
+    Admin --> UC16[Gerenciar produtos]
+    Admin --> UC15
+    Admin --> UC12
+
+    UC3 --> Gateway
+    UC6 --> Gateway
+

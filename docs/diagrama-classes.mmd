@@ -1,0 +1,107 @@
+classDiagram
+    class Usuario {
+        +int id
+        +string nome
+        +string email
+        +string senha_hash
+        +PerfilEnum perfil
+        +int unidade_id
+        +bool aceitou_fidelidade
+        +datetime data_consentimento
+        +int pontos_fidelidade
+        +datetime criado_em
+    }
+
+    class Unidade {
+        +int id
+        +string nome
+        +string tipo_unidade
+        +string endereco
+        +bool ativo
+    }
+
+    class Produto {
+        +int id
+        +string nome
+        +string descricao
+        +Decimal preco
+        +string categoria
+        +bool ativo
+    }
+
+    class EstoqueUnidade {
+        +int id
+        +int unidade_id
+        +int produto_id
+        +int quantidade
+    }
+
+    class Pedido {
+        +int id
+        +int usuario_id
+        +int unidade_id
+        +CanalPedidoEnum canal_pedido
+        +StatusPedidoEnum status
+        +Decimal valor_total
+        +datetime criado_em
+    }
+
+    class ItemPedido {
+        +int id
+        +int pedido_id
+        +int produto_id
+        +int quantidade
+        +Decimal preco_unitario
+    }
+
+    class Pagamento {
+        +int id
+        +int pedido_id
+        +MetodoPagamentoEnum metodo
+        +string status_transacao
+        +Decimal valor
+        +string transacao_id
+        +string idempotency_key
+        +datetime processado_em
+    }
+
+    class LogAuditoria {
+        +int id
+        +int usuario_id
+        +PerfilEnum perfil
+        +string acao
+        +int pedido_id
+        +string detalhes
+        +datetime criado_em
+    }
+
+    class MovimentoEstoque {
+        +int unidade_id
+        +int produto_id
+        +TipoMovimentoEnum tipo
+        +int quantidade
+        +string motivo
+    }
+
+    class HistoricoFidelidade {
+        +int usuario_id
+        +int pedido_id
+        +string tipo
+        +int pontos
+        +string descricao
+    }
+
+    Usuario "1" -- "*" Pedido
+    Unidade "1" -- "0..*" Usuario
+    Unidade "1" -- "*" Pedido
+    Unidade "1" -- "*" EstoqueUnidade
+    Produto "1" -- "*" EstoqueUnidade
+    Pedido "1" -- "1..*" ItemPedido
+    Produto "1" -- "*" ItemPedido
+    Pedido "1" -- "0..*" Pagamento
+    Usuario "1" -- "*" LogAuditoria
+    Unidade "1" -- "*" MovimentoEstoque
+    Produto "1" -- "*" MovimentoEstoque
+    Usuario "1" -- "*" HistoricoFidelidade
+    Pedido "0..1" -- "*" HistoricoFidelidade
+
